@@ -1,0 +1,23 @@
+{
+  "name": "ploom-playwright",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/czarekemce/ploom-playwright.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/czarekemce/ploom-playwright/issues"
+  },
+  "homepage": "https://github.com/czarekemce/ploom-playwright#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.50.0",
+    "@types/node": "^22.10.10"
+  }
+}
