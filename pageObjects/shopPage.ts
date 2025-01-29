@@ -10,7 +10,7 @@ export class ShopPage {
       }
 
     // Go to shop grid and click in product
-    async goToProduct(skuValue) {
+    async goToProduct(skuValue: string) {
         const shopButton = this.page.locator('.navigation__link').getByText(/Sklep|Shop/i);
         await shopButton.click()
         await this.page.waitForLoadState('load')

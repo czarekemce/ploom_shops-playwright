@@ -1,4 +1,4 @@
-import {test, Page, Locator, expect} from '@playwright/test'
+import {Page} from '@playwright/test'
 
 export class BasePage {
     readonly page: Page;
@@ -8,7 +8,7 @@ export class BasePage {
     };
 
     // Go to url and wait for the page to load
-    async goToUrl(url) {
+    async goToUrl(url: string) {
         await this.page.goto(url);
         await this.page.waitForLoadState('domcontentloaded');
     };
