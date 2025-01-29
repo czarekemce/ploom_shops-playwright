@@ -1,22 +1,25 @@
-import {Page} from '@playwright/test'
+import {Page, Locator} from '@playwright/test'
 
 export class CartPage {
     readonly page: Page;
+    readonly miniCartCheckoutButton: Locator;
+    readonly cartRemoveButton: Locator;
+    readonly removeItemConfirmButton: Locator;
 
     constructor(page: Page) {
         this.page = page;
-      };
-
-    // Go to the basket
-    async goToBasket() {
-        await this.page.getByTestId('miniCartCheckoutButton').click();
+        this.miniCartCheckoutButton = page.getByTestId('miniCartCheckoutButton');
+        this.cartRemoveButton = page.getByTestId('regular-cart-list').getByTestId('cartRemoveButton');
+        this.removeItemConfirmButton = page.getByTestId('remove-item-submit-button');
     };
 
-    // Remove items from the cart
-    async removeItemFromCart() {
-        await this.page.getByTestId('regular-cart-list').getByTestId('cartRemoveButton').click();
+    async goToBasket() {
+        await this.miniCartCheckoutButton.click();
+    };
 
+    async removeItemFromCart() {
+        await this.cartRemoveButton.click();
         this.page.on('dialog', dialog => dialog.accept());
-        await this.page.getByTestId('remove-item-submit-button').click();
+        await this.removeItemConfirmButton.click();
     };
 };

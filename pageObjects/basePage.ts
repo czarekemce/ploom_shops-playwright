@@ -1,30 +1,32 @@
-import {Page} from '@playwright/test'
+import {Page, Locator} from '@playwright/test'
 
 export class BasePage {
     readonly page: Page;
+    readonly cookiesBanner: Locator;
+    readonly rejectCookiesButton: Locator;
+    readonly ageConfirmButton: Locator;
 
     constructor(page: Page) {
-      this.page = page;
+        this.page = page;
+        this.cookiesBanner = page.locator('#onetrust-banner-sdk');
+        this.rejectCookiesButton = page.locator('#onetrust-reject-all-handler');
+        this.ageConfirmButton = page.locator('.ageconfirmation__confirmBtn > .aem-button__link').getByTestId('customButton');
     };
 
-    // Go to url and wait for the page to load
     async goToUrl(url: string) {
         await this.page.goto(url);
         await this.page.waitForLoadState('domcontentloaded');
     };
 
-    // If cookies banner is visible - reject cookies
     async rejectCookiesIfVisible() {
-        const cookiesHandle = await this.page.locator('#onetrust-banner-sdk').elementHandle();
-        if (cookiesHandle){
-            await this.page.locator('#onetrust-reject-all-handler').click();
+        if (await this.cookiesBanner.elementHandle()) {
+            await this.rejectCookiesButton.click();
             await this.page.waitForLoadState('domcontentloaded');
         };
     };
 
-    // Confirm age in modal
     async confirmAgeModal() {
         this.page.on('dialog', dialog => dialog.accept());
-        await this.page.locator('.ageconfirmation__confirmBtn > .aem-button__link').getByTestId('customButton').click();
+        await this.ageConfirmButton.click();
     };
 };
