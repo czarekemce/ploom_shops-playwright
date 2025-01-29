@@ -1,4 +1,4 @@
-# recruitment_task-playwright
+# ploom_shops-playwright
 
 - npm install
 - npm run tests
